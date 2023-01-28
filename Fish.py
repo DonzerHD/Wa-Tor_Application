@@ -5,6 +5,7 @@ class Fish:
         self.x = x
         self.y = y
         self.shape = None # Ajout de l'attribut shape
+        self.nombre_reproduction = 4
         
     def move(self, world):
         old_x = self.x
@@ -41,6 +42,6 @@ class Fish:
            
     def reproduction(self, world, old_x , old_y,day):
         if world.is_empty(old_x, old_y):
-            if day % 4 == 0:
+            if day % self.nombre_reproduction == 0:
                 new_fish = Fish(old_x, old_y)
                 world.add_fish(new_fish)
