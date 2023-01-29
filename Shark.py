@@ -31,23 +31,24 @@ class Shark(Fish):
                 world.add_shark(new_shark)
                      
     def verification_move(self, world):
-        # Initialise une liste de positions possibles pour le poisson de se déplacer
+    # Initialise une liste de positions possibles pour le poisson de se déplacer
         possible_positions = []
-        #Boucle à travers les déplacements possibles pour le poisson (dx et dy peuvent prendre les valeurs -1, 0, 1)
+        # Boucle à travers les déplacements possibles pour le poisson (dx et dy peuvent prendre les valeurs -1, 0, 1)
         for dx in [-1, 0, 1]:
             for dy in [-1, 0, 1]:
                 # Calcul les nouvelles coordonnées du poisson en utilisant l'opérateur modulo pour s'assurer 
                 # qu'elles restent dans les limites de la grille en bouclant sur les bords
                 x = (self.x + dx) % world.rows
-                y = (self.y + dy) % world.cols 
-                 # Vérifie si la case cible ne contient pas un requin ou un autre poisson
+                y = (self.y + dy) % world.cols
+                # Vérifie si la case cible ne contient pas un autre poisson
+                if world.is_empty(x, y):
+                    possible_positions.append((x, y))
                 for fish in world.fishes:
                     if fish.x == x and fish.y == y:
+                        # Enlève le poisson de la liste et dessine le poisson en rouge
                         world.fishes.remove(fish)
-                        self.shape = world.canvas.create_rectangle(self.x*10, self.y*10, (self.x*10)+10, (self.y*10)+10, fill="red")
+                        world.canvas.delete(fish.shape)
                         break
-                    elif world.is_empty(x, y):
-                        possible_positions.append((x, y))
         # Retourne la liste de positions possibles
         return possible_positions
         

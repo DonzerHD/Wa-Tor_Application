@@ -17,7 +17,8 @@ def start_simulation():
     day = 1
     world.day_label = tk.Label(world.root, text="Jour : "+str(day))
     world.day_label.pack()
-    for i in range(20):
+    world.root.geometry(str(cols*10) + "x" + str(rows*10))
+    for i in range(50):
         world.add_fish(Fish(rd.randint(1, rows - 1), rd.randint(1, cols - 1)))
     for i in range(10):
         world.add_shark(Shark(rd.randint(1, rows - 1), rd.randint(1, cols - 1)))
